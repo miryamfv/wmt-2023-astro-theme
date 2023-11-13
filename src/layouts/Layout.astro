@@ -15,18 +15,18 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+
     <meta
       name="description"
       content="[ WMT ] - Digital Boutique - Your guests' experience starts online"
     />
     <title>[ WMT ] - {title}</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="overflow-hidden overflow-y-auto bg-body">
+  <body class="overflow-y-auto bg-body">
     <Navbar />
     <slot />
     <Footer />
@@ -36,35 +36,80 @@ const { title } = Astro.props;
       "[data-switch-theme]",
     ) as HTMLButtonElement;
 
+    const elements = document.getElementsByClassName("bg-gradient-to-tr"),
+      elementsArray = Array.from(elements);
+
     if (
       localStorage.getItem("appTheme") === "dark" ||
       (!("appTheme" in localStorage) &&
         window.matchMedia("(prefers-color-scheme: dark)").matches)
     ) {
       document.documentElement.classList.add("dark");
+
+      if (elementsArray.length > 0) {
+        elementsArray.forEach(function (element) {
+          element.classList.add("dark");
+        });
+      }
     } else {
       document.documentElement.classList.remove("dark");
+
+      if (elementsArray.length > 0) {
+        elementsArray.forEach(function (element) {
+          element.classList.remove("dark");
+        });
+      }
     }
     if (switchTheme) {
       switchTheme.addEventListener("click", (e) => {
         e.preventDefault();
         const doc = document.documentElement;
-        if (doc) {
-          if (localStorage.getItem("appTheme")) {
-            if (localStorage.getItem("appTheme") === "light") {
-              doc.classList.add("dark");
-              localStorage.setItem("appTheme", "dark");
-            } else {
-              document.documentElement.classList.remove("dark");
-              localStorage.setItem("appTheme", "light");
+
+        if (elementsArray.length > 0) {
+          elementsArray.forEach(function (element) {
+            element.classList.remove("dark");
+          });
+
+          if (doc) {
+            if (localStorage.getItem("appTheme")) {
+              if (localStorage.getItem("appTheme") === "light") {
+                doc.classList.add("dark");
+
+                if (elementsArray.length > 0) {
+                  elementsArray.forEach(function (element) {
+                    element.classList.add("dark");
+                  });
+
+                  localStorage.setItem("appTheme", "dark");
+                }
+              } else {
+                document.documentElement.classList.remove("dark");
+                localStorage.setItem("appTheme", "light");
+              }
             }
           } else {
             if (doc.classList.contains("dark")) {
               doc.classList.remove("dark");
-              localStorage.setItem("appTheme", "light");
+
+              // Check if there are elements with the class "bg-gradient-to-tr"
+              if (elementsArray.length > 0) {
+                // Add the class "dark" to each element
+                elementsArray.forEach(function (element) {
+                  element.classList.remove("dark");
+                });
+                localStorage.setItem("appTheme", "light");
+              }
             } else {
               doc.classList.add("dark");
-              localStorage.setItem("appTheme", "dark");
+
+              // Check if there are elements with the class "bg-gradient-to-tr"
+              if (elementsArray.length > 0) {
+                // Add the class "dark" to each element
+                elementsArray.forEach(function (element) {
+                  element.classList.add("dark");
+                });
+                localStorage.setItem("appTheme", "dark");
+              }
             }
           }
         }
@@ -110,6 +155,14 @@ const { title } = Astro.props;
       });
     }
   </script>
+  <script>
+    const spans = document.querySelectorAll("a.logo span");
+    const numLetters = spans.length;
+    spans.forEach(function (span, i) {
+      const mappedIndex = i - numLetters / 2;
+      span.style.animationDelay = mappedIndex * 0.25 + "s";
+    });
+  </script>
 </html>
 <style is:global>
   :root {
@@ -136,6 +189,47 @@ const { title } = Astro.props;
     --primary: 234, 88, 249;
   }
 
+  .dark > .bg-from-color,
+  .dark.bg-from-color {
+    --tw-gradient-from: #111827 var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(17 24 39 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+
+  .bg-from-color {
+    --tw-gradient-from: #f3f4f6 var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(17 24 39 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: 40 57 65;
+      --color-box: 17 24 39;
+      --box-border: 243 244 246/0.1;
+      --box-sd: transparent;
+
+      --heading-1: 249 248 246;
+      --heading-2: 243 244 246;
+      --heading-3: 209 213 219;
+      --primary: 234, 88, 249;
+      --bg-gradient-from: #111827;
+    }
+
+    .bg-from-color {
+      --tw-gradient-from: #111827 var(--tw-gradient-from-position);
+      --tw-gradient-to: rgb(17 24 39 / 0) var(--tw-gradient-to-position);
+      --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    }
+  }
+
+  .text-button {
+    color: rgba(40, 57, 65);
+  }
+
+  .text-button:hover {
+    color: rgba(249, 248, 246);
+  }
   html {
     scroll-behavior: smooth;
   }
@@ -143,6 +237,45 @@ const { title } = Astro.props;
     font-family: "Raleway", sans-serif;
   }
 
+  h1 {
+    line-height: 1;
+  }
+
+  a.logo {
+    margin: 0;
+    font-size: 1.2rem;
+
+    background-color: #ea58f9;
+    background-image: linear-gradient(0deg, #ea58f9 90%, rgba(var(--color-bg)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-background-clip: text;
+    -moz-text-fill-color: transparent;
+
+    --wght-min: 182;
+    --wght-max: 650;
+  }
+
+  a.logo > span {
+    animation: breath 1.5s alternate ease-in-out;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+    animation-fill-mode: both;
+  }
+
+  a.logo:hover > span,
+  a.logo:focus > span {
+    animation-play-state: paused;
+  }
+
+  @keyframes breath {
+    0% {
+      font-variation-settings: "wght" var(--wght-min);
+    }
+    100% {
+      font-variation-settings: "wght" var(--wght-max);
+    }
+  }
   [data-toggle-nav][data-open-nav="true"] #line1 {
     transform: translateY(0.375rem) rotate(40deg);
   }
@@ -157,5 +290,64 @@ const { title } = Astro.props;
   [data-nav-overlay][data-is-visible="true"] {
     visibility: visible;
     display: flex;
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @supports (animation-timeline: view()) {
+    @keyframes anim-lineUp {
+      0% {
+        opacity: 0;
+        transform: translateY(80%);
+      }
+      20% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 0.8;
+        transform: translateY(0%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+    }
+
+    section:first-of-type h1,
+    section:first-of-type p,
+    section:first-of-type img,
+    section:first-of-type {
+      animation-name: anim-lineUp;
+      transiton: all 0.4s ease;
+      animation-duration: 2s;
+      animation-delay: 0.4s;
+    }
+
+    .lineUp {
+      view-timeline-name: --revealing-title;
+      view-timeline-axis: block;
+      animation: anim-lineUp ease-out both;
+      animation-timeline: --revealing-title;
+      animation-range: entry 25% cover 70%;
+    }
+  }
+
+  #cta {
+    line-height: 1;
+  }
+
+  .short-col {
+    justify-content: center;
+  }
+
+  .bgdetail {
+    z-index: -1;
   }
 </style>
