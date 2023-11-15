@@ -10,7 +10,7 @@ const entries = await contentfulClient.getEntries<project>({
 });
 
 const projects = entries.items.map((item) => {
-    const { title, date, description, url, thumbnail } = item.fields;
+    const { title, description, url, thumbnail } = item.fields;
     return {
         title,
         url,
@@ -23,21 +23,34 @@ const projects = entries.items.map((item) => {
 <section id="Work">
     <Container className="space-y-10 md:sapce-y-12">
         <div class="text-center max-w-3xl mx-auto space-y-4">
-            <!-- <Title>Recent Work</Title> -->
             <h1
                 class="text-heading-1 font-semibold text-2xl sm:text-3xl md:text-4xl"
             >
                 Recent Work
             </h1>
-            <p class="md:text-xl text-heading-3">Scroll down to see more</p>
+            <p class="md:text-xl text-heading-2">
+                Scroll down to see more
+                <div
+                    class="bgdetail absolute rotate-45 -left-5 md:-left-10 lg:-left-20 xl:-left-24 p-1 top-1/2 w-16 h-16 bg-gradient-to-br from-primary to-green-400 blur-3xl opacity-50"
+                >
+                </div>
+                <div
+                    class="bgdetail absolute p-1 -top-4 md:-top-10 right-0 w-20 h-20 bg-gradient-to-br from-primary to-green-400 rounded-full blur-3xl opacity-60"
+                >
+                </div>
+
+                <span
+                    class="bgdetail absolute w-1/3 aspect-[16/5] -skew-x-12 rounded-full bg-gradient-to-tr from-aqua to-heading-3-400 opacity-40 blur-2xl left-2/4 bottom-1/4"
+                ></span>
+            </p>
         </div>
     </Container>
 </section>
 
 <section id="sectionPin">
-    <span
+    <!-- <span
         class="absolute right-4 bottom-12 w-24 h-24 rounded-3xl bg-primary blur-xl opacity-80"
-    ></span>
+    ></span> -->
     <div class="pin-wrap-sticky">
         <span
             class="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr from-aqua to-primary absolute top-20 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"
@@ -87,11 +100,6 @@ const projects = entries.items.map((item) => {
         max-width: 100%;
         width: 100%;
         overscroll-behavior: none;
-    }
-
-    #Work {
-        background: url("/images/bg.svg") no-repeat;
-        background-size: cover;
     }
 
     @media (max-width: 768px) {
