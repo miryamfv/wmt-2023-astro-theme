@@ -44,21 +44,17 @@ import Paragraph from "../shared/Paragraph.astro";
       <div class="mx-auto text-center max-w-xl md:max-w-2xl relative">
         <h1 class="text-3xl/tight
           font-bold text-heading-1">
-          <span>Start selling</span>
-        </h1>
-        <h1 class="open-close text-3xl/tight
-          font-bold text-heading-1">
-          <span>more</span><div class="message">
-            <div class="text-primary">Rooms</div>
-            <div class="text-primary">Tours</div>
-            <div class="text-primary">Services</div>
-          </div>
+          <span>Turn your ideas into</span>
         </h1>
         <h1 class="text-3xl/tight
-        font-bold text-heading-1">online</h1>
+          font-bold text-heading-1">
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-br from-primary from-20% via-green via-30% to-teal"
+            >Digital Magic</span
+          >
+        </h1>
         <Paragraph className={"pt-10"}>
-          We'll help you Improve your online Presence. Get more online bookings
-          with your own platform.
+          We are the Dev Shop Trusted by Hoteliers and Travel Professionals
         </Paragraph>
 
         <BtnLink
@@ -71,103 +67,3 @@ import Paragraph from "../shared/Paragraph.astro";
     </div>
   </div>
 </section>
-<style>
-  h1 {
-    font-size: 3rem;
-    line-height: 1.5;
-  }
-  h1.open-close {
-    white-space: nowrap;
-    overflow: hidden;
-    position: relative;
-    width: 20rem;
-    text-align: left;
-    margin: 0 auto;
-  }
-
-  .message {
-    display: block;
-
-    overflow: hidden;
-    position: absolute;
-    padding-left: 0.5rem;
-    top: 0rem;
-    left: 7rem;
-    animation: openclose 5s ease-in-out infinite;
-  }
-
-  @media (max-width: 320px) {
-    h1.open-close {
-      width: 300px;
-      margin-left: -22px;
-    }
-
-    .message {
-      padding-left: 0.2rem;
-    }
-  }
-
-  @keyframes openclose {
-    0% {
-      top: 0rem;
-      width: 0;
-    }
-    5% {
-      width: 0;
-    }
-    15% {
-      width: 230px;
-    }
-    30% {
-      top: 0rem;
-      width: 230px;
-    }
-    33% {
-      top: 0.2rem;
-      width: 0;
-    }
-    35% {
-      top: 0.2rem;
-      width: 0;
-    }
-    38% {
-      top: -4.5rem;
-    }
-    48% {
-      top: -4.5rem;
-      width: 190px;
-    }
-    62% {
-      top: -4.5rem;
-      width: 190px;
-    }
-    66% {
-      top: -4.5rem;
-      width: 0;
-      text-indent: 0;
-    }
-    71% {
-      top: -9rem;
-      width: 0;
-      text-indent: 5px;
-    }
-    86% {
-      top: -9rem;
-      width: 285px;
-    }
-    95% {
-      top: -9rem;
-      width: 285px;
-    }
-    98% {
-      top: -9rem;
-      width: 0;
-      text-indent: 5px;
-    }
-    100% {
-      top: 0;
-      width: 0;
-      text-indent: 0;
-    }
-  }
-</style>
