@@ -8,7 +8,6 @@ import Container from "../shared/Container.astro";
 const entries = await contentfulClient.getEntries<project>({
     content_type: "project",
 });
-
 const projects = entries.items.map((item) => {
     const { title, description, url, thumbnail } = item.fields;
     return {
@@ -29,7 +28,6 @@ const projects = entries.items.map((item) => {
                 Recent Work
             </h1>
             <p class="md:text-xl text-heading-2">
-                Scroll down to see more
                 <div
                     class="bgdetail absolute rotate-45 -left-5 md:-left-10 lg:-left-20 xl:-left-24 p-1 top-1/2 w-16 h-16 bg-gradient-to-br from-primary to-green-400 blur-3xl opacity-50"
                 >
@@ -56,13 +54,6 @@ const projects = entries.items.map((item) => {
             class="w-4/12 lg:w-2/12 aspect-square bg-gradient-to-tr from-aqua to-primary absolute top-20 lg:left-0 rounded-full skew-y-12 blur-2xl opacity-40 skew-x-12 rotate-90"
         ></span>
         <div class="pin-wrap">
-            <h2>
-                <span
-                    class="absolute left-1/2 top-24 lg:top-28 w-24 h-24 rotate-90 skew-x-12 rounded-3xl bg-aqua blur-xl opacity-60 lg:opacity-95 lg:block hidden"
-                ></span>
-                 Each site is responsive, that means it looks good on any device
-                or screen size
-            </h2>
             {
                 projects.map((project) => (
                     <Project
@@ -94,125 +85,35 @@ const projects = entries.items.map((item) => {
     </div>
 </section>
 <style>
-    body {
-        transition: 0.3s ease-out;
-        overflow-x: hidden;
-        max-width: 100%;
-        width: 100%;
-        overscroll-behavior: none;
-    }
-
-    @media (max-width: 768px) {
-        h1 {
-            font-size: 16vw;
-        }
-    }
-
-    @media (min-width: 768px) {
-        #Work {
-            background-position-y: -30rem;
-        }
-
-        .card {
-            height: auto;
-        }
-    }
-
-    @media (max-width: 480px) {
-        #Work {
-            background-position-y: -16rem;
-        }
-    }
-
-    h2 {
-        font-size: 2rem;
-        max-width: 400px;
-        color: rgb(var(--heading-2));
-    }
-
-    * {
-        box-sizing: border-box;
-    }
-
-    section:not(#sectionPin) {
-        min-height: 100vh;
-        width: 100%;
-        position: relative;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        grid-gap: 2rem;
-        padding: 50px 10vw;
-        margin: auto;
-        place-items: center;
-        scroll-snap-align: center;
-    }
-
-    #sectionPin {
-        height: 100vh;
-        overflow: hidden;
-        display: flex;
-        left: 0;
-    }
-
     .pin-wrap {
-        height: 100vh;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        padding: 50px 10vw;
+        display: grid;
+        grid-template-columns: repeat(1fr);
+        gap: 1rem;
     }
-
-    .pin-wrap > * {
-        min-width: 60vmax;
-        padding: 0 5vmax;
-    }
-
-    @supports (animation-timeline: scroll()) {
-        h2 {
-            animation: anim-lineUp ease-out;
-            animation-timeline: scroll(root block);
-            animation-range: 10% 26%;
+    @media (min-width: 640px) {
+        .pin-wrap {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            width: 90%;
+            margin: 0 auto;
         }
     }
-    @supports (animation-timeline: view()) {
-        @keyframes move {
-            to {
-                /* Move horizontally so that right edge is aligned against the viewport */
-                transform: translateX(calc(-100% + 100vw));
-                left: 0px;
-            }
-        }
 
-        #sectionPin {
-            /* Stretch it out, so that we create room for the horizontal scroll animation */
-            height: 400vh;
-            overflow: visible; /* To make position sticky work … */
-
-            view-timeline-name: --section-pin-tl;
-            view-timeline-axis: block;
-        }
-
-        .pin-wrap-sticky {
-            /* Stick to Top */
-            height: 100vh;
-            width: 100vw;
-            position: sticky;
-            top: 0;
-            width: 100vw;
-            overflow-x: hidden;
+    @media (min-width: 1024px) {
+        .card {
+            margin: 0;
         }
 
         .pin-wrap {
-            height: 100vh;
-            width: 250vmax;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+        }
+    }
 
-            /* Hook animation */
-            will-change: transform;
-            animation: linear move forwards;
-
-            /* Link animation to view-timeline */
-            animation-timeline: --section-pin-tl;
-            animation-range: contain 0% contain 100%;
+    @media (min-width: 1280px) {
+        .pin-wrap {
+            width: 80%;
+            gap: 0.2rem;
         }
     }
 </style>
