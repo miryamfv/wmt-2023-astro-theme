@@ -59,7 +59,7 @@ const projects = entries.items.map((item) => {
                     <Project
                         title={project.title}
                         description={project.description}
-                        url={`${project.url}`}
+                        url={project.url ? `${project.url}` : "#"}
                         thumbnail={project.thumbnail}
                     >
                         <span slot="icon">
@@ -88,7 +88,7 @@ const projects = entries.items.map((item) => {
     .pin-wrap {
         display: grid;
         grid-template-columns: repeat(1fr);
-        gap: 1rem;
+        gap: 1.5rem;
     }
     @media (min-width: 640px) {
         .pin-wrap {
@@ -113,7 +113,7 @@ const projects = entries.items.map((item) => {
     @media (min-width: 1280px) {
         .pin-wrap {
             width: 80%;
-            gap: 0.2rem;
+            margin: 0 auto;
         }
     }
 </style>

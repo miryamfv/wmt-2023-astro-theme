@@ -31,11 +31,10 @@ const { title, description, url, thumbnail } = Astro.props;
                 <p class="thumbnail text-heading-1">{description}</p>
             )
         }
-
         <BtnLink
-            text="View Website"
-            href={`${url}`}
-            className="flex justify-center w-full sm:w-max thumb"
+            text={url === "#" ? "Offline" : "Visit Site"}
+            href={url}
+            className={`flex justify-center w-full sm:w-max thumb ${url === "#" ? "isdisabled" : ""}`}
             variant="primary"
         />
     </div>
