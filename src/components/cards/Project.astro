@@ -34,14 +34,14 @@ const { title, description, url, thumbnail } = Astro.props;
         <BtnLink
             text={url === "#" ? "Offline" : "Visit Site"}
             href={url}
-            className={`flex justify-center w-full sm:w-max thumb ${url === "#" ? "isdisabled" : ""}`}
+            className={`flex mb-4 justify-center w-full sm:w-max thumb ${url === "#" ? "isdisabled" : ""}`}
             variant="primary"
         />
     </div>
 </div>
 <style>
     .card {
-        height: 91vh;
+        height: 93vh;
         width: auto;
         margin: 0 1.5rem;
         max-width: 90%;
@@ -60,7 +60,7 @@ const { title, description, url, thumbnail } = Astro.props;
         background-position: 0 4.5rem;
         line-height: 1.5;
         height: 68vh;
-        min-width: 320px;
+        min-width: 280px;
         box-shadow: 0px 74px 5px 0px rgba(var(--color-box)) inset;
     }
 
